@@ -7,6 +7,7 @@
 #include "TankAimingComponent.generated.h"
 
 // Forward Declaration
+class ATank;
 class UTankBarrel;
 class UTankTurret;
 
@@ -25,5 +26,6 @@ public:
 private:
     UTankBarrel* Barrel = nullptr;
     UTankTurret* Turret = nullptr;
-    void MoveBarrelTowards(FVector AimDirection);
+    //void MoveBarrelTowards(FVector AimDirection);
+    FVector AimDirection = FVector(0.0f, 0.0f, 1.0f);
 };

@@ -14,7 +14,7 @@
 UTankTurret::UTankTurret()
 {
 #ifdef WORKAROUND
-    static ConstructorHelpers::FObjectFinder<UStaticMesh>SM(TEXT("/Content/Tank/Tank_fbx_Turret"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh>SM(TEXT("BattleTank/Content/Tank/Tank_fbx_Turret"));
     if (SM.Succeeded()) {
         UE_LOG(LogTemp, Warning, TEXT("Set Static Mesh %s"), *SM.Object->GetName());
         this->SetStaticMesh(SM.Object);
@@ -24,10 +24,12 @@ UTankTurret::UTankTurret()
 #endif
 }
 
-void UTankTurret::Rotate(float RelativeSpeed)
+void UTankTurret::Rotate(float TargetHitYawAngle)
 {
-    RelativeSpeed = FMath::Clamp<float>(RelativeSpeed, -1, +1);
-    auto RotationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
-    auto Rotation = RelativeRotation.Yaw + RotationChange;
-    SetRelativeRotation(FRotator(0, Rotation, 0));
+    float MaxLimitedAngle = MaxRotationSpeed * FMath::Sign(TargetHitYawAngle) * GetWorld()->DeltaTimeSeconds;
+    SetRelativeRotation(FRotator(0.0f,
+        FMath::Abs(TargetHitYawAngle) > FMath::Abs(MaxLimitedAngle) ?
+        RelativeRotation.Yaw + MaxLimitedAngle :
+        RelativeRotation.Yaw + TargetHitYawAngle,
+        0.0f));
 }
