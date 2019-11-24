@@ -48,7 +48,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
     // Finds the crosshair position in pixel coordinates
     int32 ViewportSizeX, ViewportSizeY;
     GetViewportSize(ViewportSizeX, ViewportSizeY);
-    auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairXLocation);
+    auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
     
     // De-projects the screen position of the crosshair to a world direction
     FVector LookDirection;
