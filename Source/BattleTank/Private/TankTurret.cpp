@@ -14,7 +14,7 @@
 UTankTurret::UTankTurret()
 {
 #ifdef WORKAROUND
-    static ConstructorHelpers::FObjectFinder<UStaticMesh>SM(TEXT("BattleTank/Content/Tank/Tank_fbx_Turret"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh>SM(TEXT("Game/Tank/tank_fbx_Turret"));
     if (SM.Succeeded()) {
         UE_LOG(LogTemp, Warning, TEXT("Set Static Mesh %s"), *SM.Object->GetName());
         this->SetStaticMesh(SM.Object);
